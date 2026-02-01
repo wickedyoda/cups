@@ -34,7 +34,7 @@ The container uses HTTP health checks against `http://localhost:631/`.
 
 ## CI checks and publishing
 
-GitHub Actions runs Dockerfile and shell checks, validates the Compose file, builds the image, and publishes to GHCR after checks pass on the `main` branch. The published image is available at `ghcr.io/<owner>/<repo>`.
+GitHub Actions runs Dockerfile and shell checks, validates the Compose file, builds the image, and publishes to GHCR after checks pass on the `main` branch. Images are tagged `latest` and `main-<YYYYMMDDHHMMSS>` and are available at `ghcr.io/<owner>/<repo>`. A scheduled cleanup deletes non-main images older than 15 days.
 
 ## Standalone Docker run
 
