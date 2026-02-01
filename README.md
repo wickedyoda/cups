@@ -5,7 +5,8 @@ Dockerized CUPS server with configurable admin credentials, USB passthrough, and
 ## Quick start (Docker Compose)
 
 ```bash
-cp example.env .env
+export CUPS_ADMIN_USER=admin
+export CUPS_ADMIN_PASSWORD=change-me
 
 docker compose up --build -d
 ```
@@ -16,8 +17,6 @@ Then open <http://localhost:631> and sign in with the admin credentials.
 
 - `CUPS_ADMIN_USER`: username created inside the container (default `admin`).
 - `CUPS_ADMIN_PASSWORD`: password for the admin user (default `admin`).
-
-Use `example.env` as a template for a local `.env` file.
 
 ## USB passthrough
 
@@ -31,10 +30,6 @@ If your host uses a different device node, update the `devices` section accordin
 ## Health checks
 
 The container uses HTTP health checks against `http://localhost:631/`.
-
-## CI checks and publishing
-
-GitHub Actions runs Dockerfile and shell checks, builds the image, and publishes to GHCR after checks pass on the `main` branch. The published image is available at `ghcr.io/<owner>/<repo>`.
 
 ## Standalone Docker run
 
