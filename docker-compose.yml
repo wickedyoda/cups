@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  cups:
+    build: .
+    container_name: cups
+    ports:
+      - "631:631"
+    environment:
+      CUPS_ADMIN_USER: "${CUPS_ADMIN_USER:-admin}"
+      CUPS_ADMIN_PASSWORD: "${CUPS_ADMIN_PASSWORD:-admin}"
+    volumes:
+      - cups-etc:/etc/cups
+      - cups-spool:/var/spool/cups
+      - cups-log:/var/log/cups
+    devices:
+      - "/dev/bus/usb:/dev/bus/usb"
+      - "/dev/usb/lp0:/dev/usb/lp0"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:631/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+volumes:
+  cups-etc:
+  cups-spool:
+  cups-log:
